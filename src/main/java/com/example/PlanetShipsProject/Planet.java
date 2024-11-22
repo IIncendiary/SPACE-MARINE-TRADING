@@ -9,14 +9,14 @@ import jakarta.persistence.Id;
 public class Planet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private String name;
     private String resource;
     private Double distanceFromEarth;
     private Double quanitytyOfResource;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -28,7 +28,7 @@ public class Planet {
         this.quanitytyOfResource = quanitytyOfResource;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
