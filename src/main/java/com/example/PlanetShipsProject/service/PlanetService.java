@@ -1,19 +1,31 @@
 package com.example.PlanetShipsProject.service;
 
-import com.example.PlanetShipsProject.Planet;
-import com.example.PlanetShipsProject.PlanetRepository;
+import com.example.PlanetShipsProject.model.Planet;
+import com.example.PlanetShipsProject.repository.PlanetRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
+@RequiredArgsConstructor
 @Service
 public class PlanetService {
     private final PlanetRepository planetRepository;
 
-    public PlanetService(PlanetRepository planetRepository) {
-        this.planetRepository = planetRepository;
+    public findAllPlanets(Planet planet){
+        planetRepository.findAll();
     }
-     public List<Planet> getAllPlanets{
-        return planetRepository.findAll();
+    public createPlanet(Planet planet){
+        return planetRepository.save(planet);
     }
+    public getPlanetById(Long id){
+        return planetRepository.findById(id);
+    }
+    public deletePlanet (Long id){
+        planetRepository.delete(id);
+    }
+
 }
+

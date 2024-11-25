@@ -1,11 +1,14 @@
-package com.example.PlanetShipsProject;
+package com.example.PlanetShipsProject.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
 @Entity
+@NoArgsConstructor
 public class Ship {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,6 +16,6 @@ public class Ship {
     private String shipName;
     private Double shipCapaticy;
     private Double currentShipFuel;
+    @ManyToOne
     private Planet currentPlanet;
-
 }
