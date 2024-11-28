@@ -1,24 +1,19 @@
 package com.example.PlanetShipsProject.service;
 
+import com.example.PlanetShipsProject.model.Planet;
 import com.example.PlanetShipsProject.model.Ship;
 import com.example.PlanetShipsProject.repository.ShipRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ShipService {
     private final ShipRepository shipRepository;
 
-    public createShip(Ship ship){
-        shipRepository.save(ship);
+    public List<Ship> findAllPlanets(){
+        return shipRepository.findAll();
     }
-    public findAllShips (Ship ship){
-        shipRepository.findAll();
-    }
-    public updateShip (Ship ship){
-
-    }
-
 }
 
