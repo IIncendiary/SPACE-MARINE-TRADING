@@ -31,7 +31,6 @@ public class PlanetService {
         Planet exsistingPlanet = getPlanetById(id);
         exsistingPlanet.setName(updatePlanet.getName());
         exsistingPlanet.setPlanetResource(updatePlanet.getPlanetResource());
-        exsistingPlanet.set
         return planetRepository.save(exsistingPlanet);
     }
 }
