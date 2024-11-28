@@ -27,5 +27,12 @@ public class PlanetService {
     public void deletePlanet (Long id){
         planetRepository.deleteById(id);
     }
+    public Planet updatePlanet(Long id, Planet updatePlanet){
+        Planet exsistingPlanet = getPlanetById(id);
+        exsistingPlanet.setName(updatePlanet.getName());
+        exsistingPlanet.setPlanetResource(updatePlanet.getPlanetResource());
+        exsistingPlanet.set
+        return planetRepository.save(exsistingPlanet);
+    }
 }
 
