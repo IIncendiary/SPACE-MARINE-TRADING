@@ -59,5 +59,6 @@ public class SpaceShipService {
         SpaceShip exsistingSpaceShip = getSpaceShipById(spaceShipId);
         return spaceShipRepository.save(exsistingSpaceShip);
     }
+
 }
 
