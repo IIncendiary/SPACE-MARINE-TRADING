@@ -15,8 +15,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class SpaceShipService {
-    private final PlanetRepository planetRepository;
     private final SpaceShipRepository spaceShipRepository;
+    PlanetService planetService;
     @Transactional
     public List<SpaceShip> findAllShips(){
         return spaceShipRepository.findAll();
@@ -46,7 +46,6 @@ public class SpaceShipService {
     }
     public SpaceShip moveSpaceShip(Long shipId, Long planetId){
         SpaceShip exsistingSpaceShip = getShipById(shipId);
-        PlanetService planetService = new PlanetService(PlanetRepository planetRepository);
         Planet nextPlanet = planetService.getPlanetById(planetId);
         if (exsistingSpaceShip.getCurrentShipFuel()<10) throw new LowFuelExeption("Не хватает топлива");
         exsistingSpaceShip.setCurrentShipFuel(exsistingSpaceShip.getCurrentShipFuel()-10);
