@@ -22,8 +22,16 @@ public class ShipController {
        return spaceShipService.createSpaceShip(newSpaceShip);
     }
 
-    @PutMapping ("/{spaceShipId}/targetPlanetId")
+    @PutMapping ("/{spaceShipId}/moveSpaceShip/targetPlanetId")
     public SpaceShip moveSpaceShip(@PathVariable Long spaceShipId, @PathVariable Long targetPlanetId){
         return spaceShipService.moveSpaceShip(spaceShipId,targetPlanetId);
     }
+
+    @PutMapping("/{spaceShipId}/update")
+    public  SpaceShip updateSpaceShip(@PathVariable Long spaceShipId, @RequestBody SpaceShip updateSpaceShip){
+        return spaceShipService.updateSpaceShip(spaceShipId,updateSpaceShip);
+    }
+
+    @DeleteMapping ("/{spaceShipId}/delete")
+    public SpaceShip deleteSpaceShip()
 }
