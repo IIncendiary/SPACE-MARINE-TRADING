@@ -43,6 +43,7 @@ public class SpaceShipService {
         exsistingSpaceShip.setCurrentPlanet(updateSpaceShip.getCurrentPlanet());
         return spaceShipRepository.save(exsistingSpaceShip);
     }
+
     public SpaceShip moveSpaceShip(Long shipId, Long planetId){
         SpaceShip exsistingSpaceShip = getSpaceShipById(shipId);
         Planet targetPlanet = planetService.getPlanetById(planetId);

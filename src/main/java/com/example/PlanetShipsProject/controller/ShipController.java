@@ -1,10 +1,11 @@
 package com.example.PlanetShipsProject.controller;
 
-import com.example.PlanetShipsProject.model.Planet;
 import com.example.PlanetShipsProject.model.SpaceShip;
 import com.example.PlanetShipsProject.service.SpaceShipService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/spaceShip")
@@ -33,5 +34,12 @@ public class ShipController {
     }
 
     @DeleteMapping ("/{spaceShipId}/delete")
-    public SpaceShip deleteSpaceShip()
+    public void deleteSpaceShipById(@PathVariable  Long spaceShipId){
+        spaceShipService.deleteSpaceShipById(spaceShipId);
+    }
+    @GetMapping("/all")
+    public List<SpaceShip> getAllSpaceShips(){
+        return spaceShipService.findAllShips();
+    }
+
 }
