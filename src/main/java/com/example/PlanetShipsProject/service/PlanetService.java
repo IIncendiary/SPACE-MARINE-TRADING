@@ -15,23 +15,25 @@ import java.util.List;
 public class PlanetService {
     private final PlanetRepository planetRepository;
 
-    @Transactional
     public List<Planet> findAllPlanets(){
         return planetRepository.findAll();
     }
+
     @Transactional
     public Planet createPlanet(Planet planet){
         return planetRepository.save(planet);
     }
-    @Transactional
+
     public Planet getPlanetById(Long id){
         return planetRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("Нема планеты с индификатором "+id));
     }
+
     @Transactional
     public void deletePlanet (Long id){
         planetRepository.deleteById(id);
     }
+
     @Transactional
     public Planet updatePlanet(Long id, Planet updatePlanet){
         Planet exsistingPlanet = getPlanetById(id);
@@ -39,5 +41,8 @@ public class PlanetService {
         exsistingPlanet.setPlanetResource(updatePlanet.getPlanetResource());
         return planetRepository.save(exsistingPlanet);
     }
+
+    //@Transactional
+
 }
 

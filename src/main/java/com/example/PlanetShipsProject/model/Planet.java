@@ -17,6 +17,7 @@ public class Planet {
     private PlanetResource planetResource;
     private Double distanceFromEarth;
     private Double quanitytyOfResource;
+    private Double fuelPrice;
 }
 
 

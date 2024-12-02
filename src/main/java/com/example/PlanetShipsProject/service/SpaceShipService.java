@@ -41,11 +41,13 @@ public class SpaceShipService {
         exsistingSpaceShip.setShipCapaticy(updateSpaceShip.getShipCapaticy());
         exsistingSpaceShip.setCurrentShipFuel(updateSpaceShip.getCurrentShipFuel());
         exsistingSpaceShip.setCurrentPlanet(updateSpaceShip.getCurrentPlanet());
+        exsistingSpaceShip.setSpaceShipGoldAmount(updateSpaceShip.getSpaceShipGoldAmount());
+        exsistingSpaceShip.setCurrentSpaceShipResource(updateSpaceShip.getCurrentSpaceShipResource());
         return spaceShipRepository.save(exsistingSpaceShip);
     }
 
-    public SpaceShip moveSpaceShip(Long shipId, Long planetId){
-        SpaceShip exsistingSpaceShip = getSpaceShipById(shipId);
+    public SpaceShip moveSpaceShip(Long spaceShipId, Long planetId){
+        SpaceShip exsistingSpaceShip = getSpaceShipById(spaceShipId);
         Planet targetPlanet = planetService.getPlanetById(planetId);
         if (exsistingSpaceShip.getCurrentShipFuel()<10) throw new LowFuelExeption("Не хватает топлива");
         exsistingSpaceShip.setCurrentShipFuel(exsistingSpaceShip.getCurrentShipFuel()-10);
@@ -53,5 +55,9 @@ public class SpaceShipService {
         return spaceShipRepository.save(exsistingSpaceShip);
     }
 
+    public SpaceShip refuelSpaceShip(Long spaceShipId, Planet currentPlanet, Double amountOfRefuel){
+        SpaceShip exsistingSpaceShip = getSpaceShipById(spaceShipId);
+        return spaceShipRepository.save(exsistingSpaceShip);
+    }
 }
 
