@@ -41,5 +41,7 @@ public class ShipController {
     public List<SpaceShip> getAllSpaceShips(){
         return spaceShipService.findAllShips();
     }
+    f
+
 
 }
