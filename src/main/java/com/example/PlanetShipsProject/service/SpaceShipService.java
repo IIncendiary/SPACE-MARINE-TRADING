@@ -2,7 +2,6 @@ package com.example.PlanetShipsProject.service;
 import com.example.PlanetShipsProject.LowFuelExeption;
 import com.example.PlanetShipsProject.model.Planet;
 import com.example.PlanetShipsProject.model.SpaceShip;
-import com.example.PlanetShipsProject.repository.PlanetRepository;
 import com.example.PlanetShipsProject.repository.SpaceShipRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.Data;
@@ -16,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SpaceShipService {
     private final SpaceShipRepository spaceShipRepository;
-    PlanetService planetService;
+    private final PlanetService planetService;
     @Transactional
     public List<SpaceShip> findAllShips(){
         return spaceShipRepository.findAll();
@@ -26,7 +25,7 @@ public class SpaceShipService {
         return spaceShipRepository.save(spaceShip);
     }
 
-    public SpaceShip getShipById(Long id){
+    public SpaceShip getSpaceShipById(Long id){
         return spaceShipRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("Нема корабля с индификатором "+id));
     }
@@ -36,7 +35,7 @@ public class SpaceShipService {
     }
 
     public SpaceShip updateSpaceShip(Long id, SpaceShip updateSpaceShip){
-        SpaceShip exsistingSpaceShip = getShipById(id);
+        SpaceShip exsistingSpaceShip = getSpaceShipById(id);
         exsistingSpaceShip.setShipCapaticy(updateSpaceShip.getShipCapaticy());
         exsistingSpaceShip.setShipName(updateSpaceShip.getShipName());
         exsistingSpaceShip.setShipCapaticy(updateSpaceShip.getShipCapaticy());
@@ -45,14 +44,13 @@ public class SpaceShipService {
         return spaceShipRepository.save(exsistingSpaceShip);
     }
     public SpaceShip moveSpaceShip(Long shipId, Long planetId){
-        SpaceShip exsistingSpaceShip = getShipById(shipId);
-        Planet nextPlanet = planetService.getPlanetById(planetId);
+        SpaceShip exsistingSpaceShip = getSpaceShipById(shipId);
+        Planet targetPlanet = planetService.getPlanetById(planetId);
         if (exsistingSpaceShip.getCurrentShipFuel()<10) throw new LowFuelExeption("Не хватает топлива");
         exsistingSpaceShip.setCurrentShipFuel(exsistingSpaceShip.getCurrentShipFuel()-10);
-        exsistingSpaceShip.setCurrentPlanet(nextPlanet);
+        exsistingSpaceShip.setCurrentPlanet(targetPlanet);
         return spaceShipRepository.save(exsistingSpaceShip);
     }
-
 
 }
 
