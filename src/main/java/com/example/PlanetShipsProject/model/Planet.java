@@ -16,7 +16,7 @@ public class Planet {
     @ManyToOne
     private PlanetResource planetResource;
     private Double distanceFromEarth;
-    //private Double quanitytyOfResource;
+    private Double quanitytyOfResource;
 }
 
 
