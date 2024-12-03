@@ -15,10 +15,11 @@ public class SpaceShip {
     private Long id;
     private String shipName;
     private Double shipCapaticy;
-    private String currentSpaceShipResource;
+    @ManyToOne
+    private PlanetResource currentSpaceShipResource;
     private Double currentShipFuel;
     private Double spaceShipGoldAmount;
     @ManyToOne
     private Planet currentPlanet;
-    //private final Double spaceShipFuelTank;
+    private Double spaceShipFuelTank;
 }
