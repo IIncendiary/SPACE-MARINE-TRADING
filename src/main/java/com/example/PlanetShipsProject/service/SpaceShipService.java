@@ -1,4 +1,6 @@
 package com.example.PlanetShipsProject.service;
+import com.example.PlanetShipsProject.Mapper.MappingUtils;
+import com.example.PlanetShipsProject.dto.SpaceShipDTO;
 import com.example.PlanetShipsProject.exceptions.*;
 import com.example.PlanetShipsProject.model.Planet;
 import com.example.PlanetShipsProject.model.SpaceShip;
@@ -6,6 +8,7 @@ import com.example.PlanetShipsProject.repository.SpaceShipRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.mapper.Mapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +19,7 @@ import java.util.List;
 public class SpaceShipService {
     private final SpaceShipRepository spaceShipRepository;
     private final PlanetService planetService;
+    private final MappingUtils mappingUtils;
     @Transactional
     public List<SpaceShip> findAllShips(){
         return spaceShipRepository.findAll();
@@ -71,7 +75,7 @@ public class SpaceShipService {
     }
 
     @Transactional
-    public SpaceShip resourceLoad(Long spaceShipId, Long currentPlanetId, Double amountOfResourceToLoad){
+    public SpaceShipDTO resourceLoad(Long spaceShipId, Long currentPlanetId, Double amountOfResourceToLoad){
         SpaceShip exsistingSpaceShip = getSpaceShipById(spaceShipId);
         Planet currentPlanet = planetService.getPlanetById(currentPlanetId);
             if (exsistingSpaceShip.getShipCapaticy()==0){
@@ -83,7 +87,7 @@ public class SpaceShipService {
             if (!exsistingSpaceShip.getCurrentSpaceShipResource().equals(currentPlanet.getPlanetResource())) throw new DifferentResourcesException("Вы пытаетесь загрузить разные ресурсы");
             exsistingSpaceShip.setShipCapaticy(exsistingSpaceShip.getShipCapaticy()+amountOfResourceToLoad);
         }
-        return spaceShipRepository.save(exsistingSpaceShip);
+        return  mappingUtils.spaceShipEntityToDto(spaceShipRepository.save(exsistingSpaceShip));
     }
 
     @Transactional
@@ -91,8 +95,7 @@ public class SpaceShipService {
         SpaceShip exsistingSpaceShip = getSpaceShipById(spaceShipId);
         if ((exsistingSpaceShip.getShipCapaticy()-amountOfResourceToSell<0)) throw new OutOfSpaceShipCapacity("Вы пытаетесь продать больше ресурса чем можете взять");
 
+
         return spaceShipRepository.save(exsistingSpaceShip);
     }
-
 }
-
