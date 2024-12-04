@@ -14,7 +14,7 @@ public class SpaceShip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String shipName;
-    private Double shipCapaticy;
+    private Double shipCapacity;
     @ManyToOne
     private PlanetResource currentSpaceShipResource;
     private Double currentShipFuel;
