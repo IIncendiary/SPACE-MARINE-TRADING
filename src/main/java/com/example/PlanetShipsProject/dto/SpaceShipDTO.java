@@ -13,9 +13,11 @@ public class SpaceShipDTO {
     private Long id;
     private String shipName;
     private Double shipCapaticy;
+    @ManyToOne
     private PlanetResource currentSpaceShipResource;
     private Double currentShipFuel;
     private Double spaceShipGoldAmount;
+    @ManyToOne
     private Planet currentPlanet;
     private Double spaceShipFuelTank;
 }
