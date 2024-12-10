@@ -11,15 +11,9 @@ import java.util.List;
 
 @Data
 public class PlanetDTO {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @ManyToOne
     private PlanetResource planetResource;
-    private Double distanceFromEarth;
-    private Double quantytyOfResource;
     private Double fuelPrice;
-    @OneToMany
     List<SpaceShip> listOfShips;
 }

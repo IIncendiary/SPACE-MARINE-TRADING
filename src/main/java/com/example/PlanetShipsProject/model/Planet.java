@@ -16,8 +16,6 @@ public class Planet {
     private String name;
     @ManyToOne
     private PlanetResource planetResource;
-    private Double distanceFromEarth;
-    private Double quanitytyOfResource;
     private Double fuelPrice;
     @OneToMany
     List<SpaceShip> listOfShips;

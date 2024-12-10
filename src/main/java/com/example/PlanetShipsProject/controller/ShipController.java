@@ -20,8 +20,8 @@ public class ShipController {
     }
 
     @PostMapping ("/spaceShip/createSpaceShip")
-    public SpaceShipDTO createSpaceShip(@RequestBody SpaceShipDTO newSpaceShip){
-       return spaceShipService.createSpaceShip(newSpaceShip);
+    public void createSpaceShip(@RequestBody SpaceShipDTO newSpaceShipDTO){
+       spaceShipService.createSpaceShip(newSpaceShipDTO);
     }
 
     @PutMapping ("/moveSpaceShip/{spaceShipId}-{targetPlanetId}")
