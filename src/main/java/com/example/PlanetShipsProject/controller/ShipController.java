@@ -24,17 +24,17 @@ public class ShipController {
        return spaceShipService.createSpaceShip(newSpaceShip);
     }
 
-    @PutMapping ("/{spaceShipId}/moveSpaceShip/targetPlanetId")
+    @PutMapping ("/moveSpaceShip//{spaceShipId}-{targetPlanetId}")
     public SpaceShipDTO moveSpaceShip(@PathVariable Long spaceShipId, @PathVariable Long targetPlanetId){
         return spaceShipService.moveSpaceShip(spaceShipId,targetPlanetId);
     }
 
-    @PutMapping("/{spaceShipId}/update")
+    @PutMapping("/update/{spaceShipId}")
     public  SpaceShipDTO updateSpaceShip(@PathVariable Long spaceShipId, @RequestBody SpaceShipDTO updateSpaceShip){
         return spaceShipService.updateSpaceShip(spaceShipId ,updateSpaceShip);
     }
 
-    @DeleteMapping ("/{spaceShipId}/delete")
+    @DeleteMapping ("/delete/{spaceShipId}")
     public void deleteSpaceShipById(@PathVariable  Long spaceShipId){
         spaceShipService.deleteSpaceShipById(spaceShipId);
     }

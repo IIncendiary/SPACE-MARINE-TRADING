@@ -13,7 +13,7 @@ public class SpaceShipMapping { public SpaceShipDTO spaceShipEntityToDto(SpaceSh
     spaceShipDTO.setSpaceShipGoldAmount(spaceShipEntity.getSpaceShipGoldAmount());
     spaceShipDTO.setSpaceShipFuelTank(spaceShipEntity.getSpaceShipFuelTank());
     spaceShipDTO.setCurrentPlanet(spaceShipEntity.getCurrentPlanet());
-    spaceShipDTO.setShipCapaticy(spaceShipEntity.getShipCapacity());
+    spaceShipDTO.setShipCapacity(spaceShipEntity.getShipCapacity());
     return spaceShipDTO;
 }
     public SpaceShip dtoToShipEntity(SpaceShipDTO spaceShipDTO){
@@ -24,7 +24,7 @@ public class SpaceShipMapping { public SpaceShipDTO spaceShipEntityToDto(SpaceSh
         spaceShip.setSpaceShipGoldAmount(spaceShipDTO.getSpaceShipGoldAmount());
         spaceShip.setSpaceShipFuelTank(spaceShipDTO.getSpaceShipFuelTank());
         spaceShip.setCurrentPlanet(spaceShipDTO.getCurrentPlanet());
-        spaceShip.setShipCapacity(spaceShipDTO.getShipCapaticy());
+        spaceShip.setShipCapacity(spaceShipDTO.getShipCapacity());
         return spaceShip;
     }
 }
