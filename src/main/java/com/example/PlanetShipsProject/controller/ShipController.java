@@ -24,7 +24,7 @@ public class ShipController {
        return spaceShipService.createSpaceShip(newSpaceShip);
     }
 
-    @PutMapping ("/moveSpaceShip//{spaceShipId}-{targetPlanetId}")
+    @PutMapping ("/moveSpaceShip/{spaceShipId}-{targetPlanetId}")
     public SpaceShipDTO moveSpaceShip(@PathVariable Long spaceShipId, @PathVariable Long targetPlanetId){
         return spaceShipService.moveSpaceShip(spaceShipId,targetPlanetId);
     }
