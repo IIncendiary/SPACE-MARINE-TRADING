@@ -30,16 +30,19 @@ public class ShipController {
     }
 
     @PutMapping("/update/{spaceShipId}")
-    public  SpaceShipDTO updateSpaceShip(@PathVariable Long spaceShipId, @RequestBody SpaceShipDTO updateSpaceShip){
-        return spaceShipService.updateSpaceShip(spaceShipId ,updateSpaceShip);
+    public void updateSpaceShip(@PathVariable Long spaceShipId, @RequestBody SpaceShipDTO updateSpaceShip){
+        spaceShipService.updateSpaceShip(spaceShipId ,updateSpaceShip);
     }
 
     @DeleteMapping ("/delete/{spaceShipId}")
     public void deleteSpaceShipById(@PathVariable  Long spaceShipId){
         spaceShipService.deleteSpaceShipById(spaceShipId);
     }
+
     @GetMapping("/all")
     public List<SpaceShipDTO> getAllSpaceShips(){
         return spaceShipService.findAllShips();
     }
+
+    @PutMapping ("/loadspaceship/")
 }

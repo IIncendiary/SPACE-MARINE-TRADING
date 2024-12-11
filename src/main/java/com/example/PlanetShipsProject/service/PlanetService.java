@@ -16,6 +16,8 @@ import java.util.List;
 public class PlanetService {
     private final PlanetRepository planetRepository;
     private final PlanetMapping planetMapping;
+
+
     public List<Planet> findAllPlanets(){
         return planetRepository.findAll();
     }
@@ -37,19 +39,18 @@ public class PlanetService {
     }
 
     @Transactional
-    public PlanetDTO updatePlanet(Long id, PlanetDTO updatePlanetDTO){
+    public void updatePlanet(Long id, PlanetDTO updatePlanetDTO){
         Planet exsistingPlanet = planetMapping.planetDtoToEntity(getPlanetById(id));
         exsistingPlanet.setName(updatePlanetDTO.getName());
         exsistingPlanet.setPlanetResource(updatePlanetDTO.getPlanetResource());
         exsistingPlanet.setFuelPrice(updatePlanetDTO.getFuelPrice());
-        return planetMapping.planetEntityToDto(planetRepository.save(exsistingPlanet));
+        planetRepository.save(exsistingPlanet);
     }
 
+    @Transactional
     public PlanetDTO updatePlanetFuelPrice(Long id, Double newFuelPrice){
         Planet exsistingPlanet = planetMapping.planetDtoToEntity(getPlanetById(id));
         exsistingPlanet.setFuelPrice(newFuelPrice);
         return planetMapping.planetEntityToDto(planetRepository.save(exsistingPlanet));
     }
 }
-
-0

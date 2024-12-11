@@ -36,8 +36,9 @@ public class SpaceShipService {
     }
 
     public SpaceShipDTO getSpaceShipById(Long id){
-        return spaceShipMapping.spaceShipEntityToDto(spaceShipRepository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("Нема корабля с индификатором "+id)));
+        SpaceShip spaceShip = spaceShipRepository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException("Нема корабля с индификатором "+id));
+        return spaceShipMapping.spaceShipEntityToDto(spaceShip);
     }
 
     @Transactional
@@ -46,7 +47,7 @@ public class SpaceShipService {
     }
 
     @Transactional
-    public SpaceShipDTO updateSpaceShip(Long spaceShipId, SpaceShipDTO updateSpaceShipDT0){
+    public void updateSpaceShip(Long spaceShipId, SpaceShipDTO updateSpaceShipDT0){
         SpaceShip exsistingSpaceShip = spaceShipMapping.spaceShipDtoToEntity(getSpaceShipById(spaceShipId));
         SpaceShip updateSpaceShip = spaceShipMapping.spaceShipDtoToEntity(updateSpaceShipDT0);
         exsistingSpaceShip.setShipCapacity(updateSpaceShip.getShipCapacity());
@@ -57,7 +58,6 @@ public class SpaceShipService {
         exsistingSpaceShip.setSpaceShipGoldAmount(updateSpaceShip.getSpaceShipGoldAmount());
         exsistingSpaceShip.setCurrentSpaceShipResource(updateSpaceShip.getCurrentSpaceShipResource());
         spaceShipRepository.save(exsistingSpaceShip);
-        return spaceShipMapping.spaceShipEntityToDto(exsistingSpaceShip);
     }
 
     @Transactional
