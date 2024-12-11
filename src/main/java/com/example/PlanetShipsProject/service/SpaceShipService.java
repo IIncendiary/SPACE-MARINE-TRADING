@@ -71,9 +71,10 @@ public class SpaceShipService {
     }
 
     @Transactional
-    public SpaceShipDTO refuelSpaceShip(Long spaceShipId, Long currentPlanetId, Double amountOfRefuel){
+    public SpaceShipDTO refuelSpaceShip(Long spaceShipId, Double amountOfRefuel){
         SpaceShip exsistingSpaceShip = spaceShipMapping.spaceShipDtoToEntity(getSpaceShipById(spaceShipId));
-        Planet currentPlanet = planetMapping.planetDtoToEntity(planetService.getPlanetById(currentPlanetId));
+        //Planet currentPlanet = planetMapping.planetDtoToEntity(planetService.getPlanetById(currentPlanetId));
+        Planet currentPlanet = exsistingSpaceShip.getCurrentPlanet();
         if ((exsistingSpaceShip.getCurrentShipFuel()+amountOfRefuel<exsistingSpaceShip.getSpaceShipFuelTank())) throw new OutOfBounderFuelTankException("Вы пытаетесь залить болше топлива чем можете");
         if ((exsistingSpaceShip.getSpaceShipGoldAmount()<amountOfRefuel*currentPlanet.getFuelPrice())) throw new OutOfGoldExeption("Не хватает денег на заправку");
         exsistingSpaceShip.setCurrentShipFuel(exsistingSpaceShip.getCurrentShipFuel()+amountOfRefuel);
@@ -82,9 +83,10 @@ public class SpaceShipService {
     }
 
     @Transactional
-    public SpaceShipDTO resourceLoad(SpaceShipDTO spaceShipDTO, Long currentPlanetId, Double amountOfResourceToLoad){
-        SpaceShip exsistingSpaceShip = spaceShipMapping.spaceShipDtoToEntity(spaceShipDTO);
-        Planet currentPlanet = planetMapping.planetDtoToEntity(planetService.getPlanetById(currentPlanetId));
+    public SpaceShipDTO resourceLoad(Long spaceShipDTOid, Double amountOfResourceToLoad){
+        SpaceShip exsistingSpaceShip = spaceShipMapping.spaceShipDtoToEntity(getSpaceShipById(spaceShipDTOid));
+       // Planet currentPlanet = planetMapping.planetDtoToEntity(planetService.getPlanetById(currentPlanetId));
+        Planet currentPlanet = exsistingSpaceShip.getCurrentPlanet();
             if (exsistingSpaceShip.getShipCapacity()==0){
             if (exsistingSpaceShip.getShipCapacity()<amountOfResourceToLoad) throw new OutOfSpaceShipCapacity("Вы пытаетесь загрузить больше ресурса чем можете взять");
             exsistingSpaceShip.setShipCapacity(exsistingSpaceShip.getShipCapacity()+amountOfResourceToLoad);

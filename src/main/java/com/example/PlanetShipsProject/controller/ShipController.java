@@ -24,7 +24,7 @@ public class ShipController {
        spaceShipService.createSpaceShip(newSpaceShipDTO);
     }
 
-    @PutMapping ("/moveSpaceShip/{spaceShipId}-{targetPlanetId}")
+    @PutMapping ("/{spaceShipId}/moveSpaceShip/{targetPlanetId}")
     public SpaceShipDTO moveSpaceShip(@PathVariable Long spaceShipId, @PathVariable Long targetPlanetId){
         return spaceShipService.moveSpaceShip(spaceShipId,targetPlanetId);
     }
@@ -44,5 +44,19 @@ public class ShipController {
         return spaceShipService.findAllShips();
     }
 
-    @PutMapping ("/loadspaceship/")
+    @PutMapping ("/{spaceShipId}/loadspaceship")
+    public SpaceShipDTO resourceLoad(@PathVariable Long spaceShipId, @RequestBody Double amountOfResourceToLoad ){
+        return spaceShipService.resourceLoad(spaceShipId, amountOfResourceToLoad);
+    }
+
+    @PutMapping ("/{spaceShipId}/resuelspaceship")
+    public SpaceShipDTO refuelSpaceShip(@PathVariable Long spaceShipId, @RequestBody Double amountOfRefuel ){
+        return spaceShipService.refuelSpaceShip(spaceShipId, amountOfRefuel);
+    }
+
+    @PutMapping ("/{spaceShipId}/sellResource")
+    public SpaceShipDTO sellResource(@PathVariable Long spaceShipId, @RequestBody Double amountOfResourceToSell ){
+        return spaceShipService.sellResource(spaceShipId, amountOfResourceToSell);
+    }
+
 }
