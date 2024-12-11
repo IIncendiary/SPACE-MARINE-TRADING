@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Data
 @RequiredArgsConstructor
 @Service
@@ -48,9 +50,16 @@ public class PlanetService {
     }
 
     @Transactional
-    public PlanetDTO updatePlanetFuelPrice(Long id, Double newFuelPrice){
-        Planet exsistingPlanet = planetMapping.planetDtoToEntity(getPlanetById(id));
+    public PlanetDTO updatePlanetFuelPrice(Long planetDTOId, Double newFuelPrice){
+        Planet exsistingPlanet = planetMapping.planetDtoToEntity(getPlanetById(planetDTOId));
         exsistingPlanet.setFuelPrice(newFuelPrice);
         return planetMapping.planetEntityToDto(planetRepository.save(exsistingPlanet));
+    }
+
+    public List<PlanetDTO> getAllSpaceShipsOnAPlanet(Long planetDTOId){
+        Planet exsistingPlanet = planetMapping.planetDtoToEntity(getPlanetById(planetDTOId));
+        PlanetDTO planetDTO = new PlanetDTO();
+        planetDTO.setListOfShips(exsistingPlanet.getListOfShips());
+        return planetDTO.getListOfShips();
     }
 }

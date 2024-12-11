@@ -58,5 +58,4 @@ public class ShipController {
     public SpaceShipDTO sellResource(@PathVariable Long spaceShipId, @RequestBody Double amountOfResourceToSell ){
         return spaceShipService.sellResource(spaceShipId, amountOfResourceToSell);
     }
-
 }
