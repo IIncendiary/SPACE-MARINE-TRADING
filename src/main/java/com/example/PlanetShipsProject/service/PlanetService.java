@@ -25,9 +25,10 @@ public class PlanetService {
        planetRepository.save(planetMapping.planetDtoToEntity(planetDTO));
     }
 
-    public Planet getPlanetById(Long id){
-        return planetRepository.findById(id)
+    public PlanetDTO getPlanetById(Long id){
+        Planet planet = planetRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("Нема планеты с индификатором "+id));
+        return planetMapping.planetEntityToDto(planet);
     }
 
     @Transactional
@@ -36,11 +37,19 @@ public class PlanetService {
     }
 
     @Transactional
-    public Planet updatePlanet(Long id, Planet updatePlanet){
-        Planet exsistingPlanet = getPlanetById(id);
-        exsistingPlanet.setName(updatePlanet.getName());
-        exsistingPlanet.setPlanetResource(updatePlanet.getPlanetResource());
-        return planetRepository.save(exsistingPlanet);
+    public PlanetDTO updatePlanet(Long id, PlanetDTO updatePlanetDTO){
+        Planet exsistingPlanet = planetMapping.planetDtoToEntity(getPlanetById(id));
+        exsistingPlanet.setName(updatePlanetDTO.getName());
+        exsistingPlanet.setPlanetResource(updatePlanetDTO.getPlanetResource());
+        exsistingPlanet.setFuelPrice(updatePlanetDTO.getFuelPrice());
+        return planetMapping.planetEntityToDto(planetRepository.save(exsistingPlanet));
+    }
+
+    public PlanetDTO updatePlanetFuelPrice(Long id, Double newFuelPrice){
+        Planet exsistingPlanet = planetMapping.planetDtoToEntity(getPlanetById(id));
+        exsistingPlanet.setFuelPrice(newFuelPrice);
+        return planetMapping.planetEntityToDto(planetRepository.save(exsistingPlanet));
     }
 }
 
+0

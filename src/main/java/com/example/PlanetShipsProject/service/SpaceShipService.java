@@ -1,4 +1,5 @@
 package com.example.PlanetShipsProject.service;
+import com.example.PlanetShipsProject.Mapper.PlanetMapping;
 import com.example.PlanetShipsProject.Mapper.SpaceShipMapping;
 import com.example.PlanetShipsProject.dto.SpaceShipDTO;
 import com.example.PlanetShipsProject.exceptions.*;
@@ -21,6 +22,7 @@ public class SpaceShipService {
     private final SpaceShipRepository spaceShipRepository;
     private final PlanetService planetService;
     private final SpaceShipMapping spaceShipMapping;
+    private final PlanetMapping planetMapping;
 
     @Transactional
     public List<SpaceShipDTO> findAllShips(){
@@ -61,7 +63,7 @@ public class SpaceShipService {
     @Transactional
     public SpaceShipDTO moveSpaceShip(Long spaceShipId, Long planetId){
         SpaceShip exsistingSpaceShip = spaceShipMapping.spaceShipDtoToEntity(getSpaceShipById(spaceShipId));
-        Planet targetPlanet = planetService.getPlanetById(planetId);
+        Planet targetPlanet = planetMapping.planetDtoToEntity(planetService.getPlanetById(planetId));
         if (exsistingSpaceShip.getCurrentShipFuel()<10) throw new LowFuelException("Не хватает топлива");
         exsistingSpaceShip.setCurrentShipFuel(exsistingSpaceShip.getCurrentShipFuel()-10);
         exsistingSpaceShip.setCurrentPlanet(targetPlanet);
@@ -71,7 +73,7 @@ public class SpaceShipService {
     @Transactional
     public SpaceShipDTO refuelSpaceShip(Long spaceShipId, Long currentPlanetId, Double amountOfRefuel){
         SpaceShip exsistingSpaceShip = spaceShipMapping.spaceShipDtoToEntity(getSpaceShipById(spaceShipId));
-        Planet currentPlanet = planetService.getPlanetById(currentPlanetId);
+        Planet currentPlanet = planetMapping.planetDtoToEntity(planetService.getPlanetById(currentPlanetId));
         if ((exsistingSpaceShip.getCurrentShipFuel()+amountOfRefuel<exsistingSpaceShip.getSpaceShipFuelTank())) throw new OutOfBounderFuelTankException("Вы пытаетесь залить болше топлива чем можете");
         if ((exsistingSpaceShip.getSpaceShipGoldAmount()<amountOfRefuel*currentPlanet.getFuelPrice())) throw new OutOfGoldExeption("Не хватает денег на заправку");
         exsistingSpaceShip.setCurrentShipFuel(exsistingSpaceShip.getCurrentShipFuel()+amountOfRefuel);
@@ -82,7 +84,7 @@ public class SpaceShipService {
     @Transactional
     public SpaceShipDTO resourceLoad(SpaceShipDTO spaceShipDTO, Long currentPlanetId, Double amountOfResourceToLoad){
         SpaceShip exsistingSpaceShip = spaceShipMapping.spaceShipDtoToEntity(spaceShipDTO);
-        Planet currentPlanet = planetService.getPlanetById(currentPlanetId);
+        Planet currentPlanet = planetMapping.planetDtoToEntity(planetService.getPlanetById(currentPlanetId));
             if (exsistingSpaceShip.getShipCapacity()==0){
             if (exsistingSpaceShip.getShipCapacity()<amountOfResourceToLoad) throw new OutOfSpaceShipCapacity("Вы пытаетесь загрузить больше ресурса чем можете взять");
             exsistingSpaceShip.setShipCapacity(exsistingSpaceShip.getShipCapacity()+amountOfResourceToLoad);
