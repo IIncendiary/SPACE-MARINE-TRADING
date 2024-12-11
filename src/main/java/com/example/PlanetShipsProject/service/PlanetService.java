@@ -1,6 +1,8 @@
 package com.example.PlanetShipsProject.service;
 import com.example.PlanetShipsProject.Mapper.PlanetMapping;
+import com.example.PlanetShipsProject.Mapper.SpaceShipMapping;
 import com.example.PlanetShipsProject.dto.PlanetDTO;
+import com.example.PlanetShipsProject.dto.SpaceShipDTO;
 import com.example.PlanetShipsProject.model.Planet;
 import com.example.PlanetShipsProject.repository.PlanetRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,10 +20,12 @@ import java.util.stream.Collectors;
 public class PlanetService {
     private final PlanetRepository planetRepository;
     private final PlanetMapping planetMapping;
+    private final SpaceShipMapping spaceShipMapping;
 
 
-    public List<Planet> findAllPlanets(){
-        return planetRepository.findAll();
+    public List<PlanetDTO> findAllPlanets(){
+        List<Planet> planetsList = planetRepository.findAll();
+        return planetsList.stream().map(planetMapping::planetEntityToDto).toList();
     }
 
     @Transactional
@@ -50,16 +54,14 @@ public class PlanetService {
     }
 
     @Transactional
-    public PlanetDTO updatePlanetFuelPrice(Long planetDTOId, Double newFuelPrice){
+    public void updatePlanetFuelPrice(Long planetDTOId, Double newFuelPrice){
         Planet exsistingPlanet = planetMapping.planetDtoToEntity(getPlanetById(planetDTOId));
         exsistingPlanet.setFuelPrice(newFuelPrice);
-        return planetMapping.planetEntityToDto(planetRepository.save(exsistingPlanet));
+        planetRepository.save(exsistingPlanet);
     }
 
-    public List<PlanetDTO> getAllSpaceShipsOnAPlanet(Long planetDTOId){
+    public List<SpaceShipDTO> getAllSpaceShipsOnAPlanet(Long planetDTOId){
         Planet exsistingPlanet = planetMapping.planetDtoToEntity(getPlanetById(planetDTOId));
-        PlanetDTO planetDTO = new PlanetDTO();
-        planetDTO.setListOfShips(exsistingPlanet.getListOfShips());
-        return planetDTO.getListOfShips();
+        return spaceShipMapping.spaceShipListEntityToDTO(exsistingPlanet.getListOfShips());
     }
 }

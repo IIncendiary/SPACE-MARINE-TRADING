@@ -4,6 +4,8 @@ import com.example.PlanetShipsProject.dto.SpaceShipDTO;
 import com.example.PlanetShipsProject.model.SpaceShip;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SpaceShipMapping {
     public SpaceShipDTO spaceShipEntityToDto(SpaceShip spaceShipEntity){
@@ -28,4 +30,11 @@ public class SpaceShipMapping {
         spaceShip.setShipCapacity(spaceShipDTO.getShipCapacity());
         return spaceShip;
     }
+    public List<SpaceShipDTO> spaceShipListEntityToDTO(List <SpaceShip> spaceShipEntityList){
+        return spaceShipEntityList.stream().map(this::spaceShipEntityToDto).toList();
+    }
+    public List<SpaceShip> spaceShipListDtoToEntity(List<SpaceShipDTO> spaceShipDTOList){
+        return spaceShipDTOList.stream().map(this::spaceShipDtoToEntity).toList();
+    }
 }
+
