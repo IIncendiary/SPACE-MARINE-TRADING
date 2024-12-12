@@ -20,17 +20,17 @@ public class PlanetResourceController {
         return planetResourceService.getPlanetResourceById(planetResourceId);
     }
 
-    @PostMapping("/create")
+    @PostMapping()
     public void createPlanetResource(@RequestBody PlanetResourceDTO planetResourceDTO){
         planetResourceService.createPlanetResource(planetResourceDTO);
     }
 
-    @PutMapping("/{planetResourceId}/update")
+    @PutMapping("/{planetResourceId}")
     public void updatePlanetResource(@PathVariable Long planetResourceId, @RequestBody PlanetResourceDTO planetResourceDTO){
         planetResourceService.updatePlanetResource(planetResourceId,planetResourceDTO);
     }
 
-    @DeleteMapping ("/delete/{planetResourceId}")
+    @DeleteMapping ("/{planetResourceId}")
     public void deletePlanet(@PathVariable Long planetResourceId){
         planetResourceService.deletePlanetResource(planetResourceId);
     }

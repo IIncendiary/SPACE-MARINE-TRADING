@@ -17,7 +17,7 @@ public class ShipController {
         return  spaceShipService.getSpaceShipById(spaceShipId);
     }
 
-    @PostMapping ("/spaceShip/createSpaceShip")
+    @PostMapping ()
     public void createSpaceShip(@RequestBody SpaceShipDTO newSpaceShipDTO){
        spaceShipService.createSpaceShip(newSpaceShipDTO);
     }
@@ -27,12 +27,12 @@ public class ShipController {
         return spaceShipService.moveSpaceShip(spaceShipId,targetPlanetId);
     }
 
-    @PutMapping("/update/{spaceShipId}")
+    @PutMapping("/{spaceShipId}")
     public void updateSpaceShip(@PathVariable Long spaceShipId, @RequestBody SpaceShipDTO updateSpaceShip){
         spaceShipService.updateSpaceShip(spaceShipId ,updateSpaceShip);
     }
 
-    @DeleteMapping ("/delete/{spaceShipId}")
+    @DeleteMapping ("/{spaceShipId}")
     public void deleteSpaceShipById(@PathVariable  Long spaceShipId){
         spaceShipService.deleteSpaceShipById(spaceShipId);
     }
@@ -42,18 +42,18 @@ public class ShipController {
         return spaceShipService.findAllShips();
     }
 
-    @PutMapping ("/{spaceShipId}/loadspaceship")
-    public SpaceShipDTO resourceLoad(@PathVariable Long spaceShipId, @RequestBody Double amountOfResourceToLoad ){
+    @PutMapping ("/{spaceShipId}/loadspaceship/{amountOfResourceToLoad}")
+    public SpaceShipDTO resourceLoad(@PathVariable Long spaceShipId, @PathVariable  Double amountOfResourceToLoad ){
         return spaceShipService.resourceLoad(spaceShipId, amountOfResourceToLoad);
     }
 
-    @PutMapping ("/{spaceShipId}/resuelspaceship")
-    public SpaceShipDTO refuelSpaceShip(@PathVariable Long spaceShipId, @RequestBody Double amountOfRefuel ){
+    @PutMapping ("/{spaceShipId}/resuelspaceship/{amountOfRefuel}")
+    public SpaceShipDTO refuelSpaceShip(@PathVariable Long spaceShipId, @PathVariable Double amountOfRefuel ){
         return spaceShipService.refuelSpaceShip(spaceShipId, amountOfRefuel);
     }
 
-    @PutMapping ("/{spaceShipId}/sellResource")
-    public SpaceShipDTO sellResource(@PathVariable Long spaceShipId, @RequestBody Double amountOfResourceToSell ){
+    @PutMapping ("/{spaceShipId}/sellResource/{amountOfResourceToSell}")
+    public SpaceShipDTO sellResource(@PathVariable Long spaceShipId, @PathVariable Double amountOfResourceToSell ){
         return spaceShipService.sellResource(spaceShipId, amountOfResourceToSell);
     }
 }
