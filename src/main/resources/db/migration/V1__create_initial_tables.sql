@@ -8,8 +8,6 @@ CREATE TABLE planet (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     planet_resource_id BIGINT,
-    distance_from_earth DOUBLE PRECISION,
-    quanityty_of_resource DOUBLE PRECISION,
     fuel_price DOUBLE PRECISION,
     CONSTRAINT fk_planet_resource FOREIGN KEY (planet_resource_id) REFERENCES planet_resource(id)
 );
