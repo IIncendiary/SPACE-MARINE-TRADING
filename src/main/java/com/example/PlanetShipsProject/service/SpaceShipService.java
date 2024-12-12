@@ -1,4 +1,5 @@
 package com.example.PlanetShipsProject.service;
+
 import com.example.PlanetShipsProject.Mapper.PlanetMapper;
 import com.example.PlanetShipsProject.Mapper.SpaceShipMapper;
 import com.example.PlanetShipsProject.dto.SpaceShipDTO;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @Service

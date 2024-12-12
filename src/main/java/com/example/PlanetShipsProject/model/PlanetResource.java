@@ -15,10 +15,14 @@ public class PlanetResource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
     private Character rarity;
+
     @OneToMany
     List<SpaceShip> listOfShips;
+
     @OneToMany
     List<Planet> listOfPlanets;
 }

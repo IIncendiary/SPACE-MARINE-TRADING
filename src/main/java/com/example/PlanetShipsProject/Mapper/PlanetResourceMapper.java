@@ -1,9 +1,7 @@
 package com.example.PlanetShipsProject.Mapper;
 
 import com.example.PlanetShipsProject.dto.PlanetResourceDTO;
-import com.example.PlanetShipsProject.dto.SpaceShipDTO;
 import com.example.PlanetShipsProject.model.PlanetResource;
-import com.example.PlanetShipsProject.model.SpaceShip;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,6 +9,7 @@ import java.util.List;
 
 @Service
 public class PlanetResourceMapper {
+
     public PlanetResourceDTO planetResourceEntityToDto(PlanetResource planetResource){
         PlanetResourceDTO planetResourceDTO = new PlanetResourceDTO();
         planetResourceDTO.setId(planetResource.getId());
@@ -20,6 +19,7 @@ public class PlanetResourceMapper {
         planetResourceDTO.setListOfShips(planetResource.getListOfShips());
         return planetResourceDTO;
     }
+
     public PlanetResource planetResourceDtoToEntity(PlanetResourceDTO planetResourceDTO){
         PlanetResource planetResource = new PlanetResource();
         planetResource.setId(planetResourceDTO.getId());
@@ -29,6 +29,7 @@ public class PlanetResourceMapper {
         planetResource.setListOfShips(planetResourceDTO.getListOfShips());
         return planetResource;
     }
+
     public List<PlanetResourceDTO> planetResourceListEntityToDto(List <PlanetResource> planetResourceList){
         if (planetResourceList==null){
             return null;
@@ -40,6 +41,7 @@ public class PlanetResourceMapper {
         }
         return planetResourceDTOS;
     }
+
     public List<PlanetResource> planetResourceListDtoToEntity(List<PlanetResourceDTO> planetResourceDTOList){
         if (planetResourceDTOList==null){
             return null;
