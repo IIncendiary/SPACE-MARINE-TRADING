@@ -51,10 +51,10 @@ public class PlanetService {
     }
 
     @Transactional
-    public PlanetDTO updatePlanetFuelPrice(Long planetDTOId, Double newFuelPrice){
+    public void updatePlanetFuelPrice(Long planetDTOId, Double newFuelPrice){
         Planet exsistingPlanet = planetMapper.planetDtoToEntity(getPlanetById(planetDTOId));
         exsistingPlanet.setFuelPrice(newFuelPrice);
-        return planetMapper.planetEntityToDto(planetRepository.save(exsistingPlanet));
+        planetMapper.planetEntityToDto(planetRepository.save(exsistingPlanet));
     }
 
     public List<SpaceShipDTO> getAllSpaceShipsOnAPlanet(Long planetDTOId){

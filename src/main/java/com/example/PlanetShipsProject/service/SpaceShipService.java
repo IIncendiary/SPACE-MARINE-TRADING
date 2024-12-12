@@ -26,8 +26,7 @@ public class SpaceShipService {
 
     @Transactional
     public List<SpaceShipDTO> findAllShips(){
-        List<SpaceShip> spaceShipList = spaceShipRepository.findAll();
-        return spaceShipList.stream().map(spaceShipMapper::spaceShipEntityToDto).collect(Collectors.toList());
+        return spaceShipMapper.spaceShipListEntityToDTO(spaceShipRepository.findAll());
     }
 
     @Transactional

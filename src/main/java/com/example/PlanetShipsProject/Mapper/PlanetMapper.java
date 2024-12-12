@@ -1,9 +1,12 @@
 package com.example.PlanetShipsProject.Mapper;
 
 import com.example.PlanetShipsProject.dto.PlanetDTO;
+import com.example.PlanetShipsProject.dto.SpaceShipDTO;
 import com.example.PlanetShipsProject.model.Planet;
+import com.example.PlanetShipsProject.model.SpaceShip;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,10 +31,26 @@ public class PlanetMapper {
     }
 
     public List<PlanetDTO> planetListEntityToDTO(List <Planet> planetEntityList){
-        return planetEntityList.stream().map(this::planetEntityToDto).toList();
+        if (planetEntityList==null){
+            return null;
+        }
+        List<PlanetDTO> planetDTOS = new ArrayList<>(planetEntityList.size());
+        for (Planet planet:planetEntityList){
+            planetDTOS.add(planetEntityToDto(planet));
+
+        }
+        return planetDTOS;
     }
 
     public List<Planet> planetListDtoToEntity(List<PlanetDTO> planetDTOList){
-        return planetDTOList.stream().map(this::planetDtoToEntity).toList();
+        if (planetDTOList==null){
+            return null;
+        }
+        List<Planet> planets = new ArrayList<>(planetDTOList.size());
+        for (PlanetDTO planetDTO:planetDTOList){
+            planets.add(planetDtoToEntity(planetDTO));
+
+        }
+        return planets;
     }
 }

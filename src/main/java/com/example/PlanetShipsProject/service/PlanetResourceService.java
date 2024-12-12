@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Data
@@ -27,9 +26,9 @@ public class PlanetResourceService{
   private final PlanetMapper planetMapper;
 
     public List<PlanetResourceDTO> findAllPlanetResources(){
-        List<PlanetResource> planetResourceList = planetResourseRepository.findAll();
-        return planetResourceList.stream().map(planetResourceMapper::planetResourceEntityToDto).collect(Collectors.toList());
+        return planetResourceMapper.planetResourceListEntityToDto(planetResourseRepository.findAll());
     }
+
     @Transactional
     public void createPlanetResource(PlanetResourceDTO planetResourceDTO){
         planetResourseRepository.save(planetResourceMapper.planetResourceDtoToEntity(planetResourceDTO));
@@ -41,6 +40,7 @@ public class PlanetResourceService{
                 .orElseThrow(()-> new EntityNotFoundException("Нема реса с индификатором "+id));
         return planetResourceMapper.planetResourceEntityToDto(planetResource);
     }
+
     @Transactional
     public void deletePlanetResource (Long id){
         planetResourseRepository.deleteById(id);
