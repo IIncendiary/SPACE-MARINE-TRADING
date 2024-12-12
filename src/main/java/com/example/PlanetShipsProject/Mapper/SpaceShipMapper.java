@@ -30,6 +30,7 @@ public class SpaceShipMapper {
         spaceShip.setSpaceShipGoldAmount(spaceShipDTO.getSpaceShipGoldAmount());
         spaceShip.setSpaceShipFuelTank(spaceShipDTO.getSpaceShipFuelTank());
         spaceShip.setCurrentPlanet(spaceShipDTO.getCurrentPlanet());
+        spaceShip.setCurrentShipFuel(spaceShipDTO.getCurrentShipFuel());
         spaceShip.setShipCapacity(spaceShipDTO.getShipCapacity());
         return spaceShip;
     }
