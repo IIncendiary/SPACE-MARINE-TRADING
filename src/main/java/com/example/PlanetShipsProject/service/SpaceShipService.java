@@ -1,6 +1,7 @@
 package com.example.PlanetShipsProject.service;
-import com.example.PlanetShipsProject.Mapper.PlanetMapping;
-import com.example.PlanetShipsProject.Mapper.SpaceShipMapping;
+
+import com.example.PlanetShipsProject.Mapper.PlanetMapper;
+import com.example.PlanetShipsProject.Mapper.SpaceShipMapper;
 import com.example.PlanetShipsProject.dto.SpaceShipDTO;
 import com.example.PlanetShipsProject.exceptions.*;
 import com.example.PlanetShipsProject.model.Planet;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @Service
@@ -21,24 +21,23 @@ import java.util.stream.Collectors;
 public class SpaceShipService {
     private final SpaceShipRepository spaceShipRepository;
     private final PlanetService planetService;
-    private final SpaceShipMapping spaceShipMapping;
-    private final PlanetMapping planetMapping;
+    private final SpaceShipMapper spaceShipMapper;
+    private final PlanetMapper planetMapper;
 
     @Transactional
     public List<SpaceShipDTO> findAllShips(){
-        List<SpaceShip> spaceShipList = spaceShipRepository.findAll();
-        return spaceShipList.stream().map(spaceShipMapping::spaceShipEntityToDto).collect(Collectors.toList());
+        return spaceShipMapper.spaceShipListEntityToDTO(spaceShipRepository.findAll());
     }
 
     @Transactional
     public void createSpaceShip(SpaceShipDTO spaceShipDTO){
-        spaceShipRepository.save(spaceShipMapping.spaceShipDtoToEntity(spaceShipDTO));
+        spaceShipRepository.save(spaceShipMapper.spaceShipDtoToEntity(spaceShipDTO));
     }
 
     public SpaceShipDTO getSpaceShipById(Long id){
         SpaceShip spaceShip = spaceShipRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("Нема корабля с индификатором "+id));
-        return spaceShipMapping.spaceShipEntityToDto(spaceShip);
+        return spaceShipMapper.spaceShipEntityToDto(spaceShip);
     }
 
     @Transactional
@@ -48,8 +47,8 @@ public class SpaceShipService {
 
     @Transactional
     public void updateSpaceShip(Long spaceShipId, SpaceShipDTO updateSpaceShipDT0){
-        SpaceShip exsistingSpaceShip = spaceShipMapping.spaceShipDtoToEntity(getSpaceShipById(spaceShipId));
-        SpaceShip updateSpaceShip = spaceShipMapping.spaceShipDtoToEntity(updateSpaceShipDT0);
+        SpaceShip exsistingSpaceShip = spaceShipMapper.spaceShipDtoToEntity(getSpaceShipById(spaceShipId));
+        SpaceShip updateSpaceShip = spaceShipMapper.spaceShipDtoToEntity(updateSpaceShipDT0);
         exsistingSpaceShip.setShipCapacity(updateSpaceShip.getShipCapacity());
         exsistingSpaceShip.setShipName(updateSpaceShip.getShipName());
         exsistingSpaceShip.setShipCapacity(updateSpaceShip.getShipCapacity());
@@ -62,29 +61,29 @@ public class SpaceShipService {
 
     @Transactional
     public SpaceShipDTO moveSpaceShip(Long spaceShipId, Long planetId){
-        SpaceShip exsistingSpaceShip = spaceShipMapping.spaceShipDtoToEntity(getSpaceShipById(spaceShipId));
-        Planet targetPlanet = planetMapping.planetDtoToEntity(planetService.getPlanetById(planetId));
+        SpaceShip exsistingSpaceShip = spaceShipMapper.spaceShipDtoToEntity(getSpaceShipById(spaceShipId));
+        Planet targetPlanet = planetMapper.planetDtoToEntity(planetService.getPlanetById(planetId));
         if (exsistingSpaceShip.getCurrentShipFuel()<10) throw new LowFuelException("Не хватает топлива");
         exsistingSpaceShip.setCurrentShipFuel(exsistingSpaceShip.getCurrentShipFuel()-10);
         exsistingSpaceShip.setCurrentPlanet(targetPlanet);
-        return spaceShipMapping.spaceShipEntityToDto(spaceShipRepository.save(exsistingSpaceShip));
+        return spaceShipMapper.spaceShipEntityToDto(spaceShipRepository.save(exsistingSpaceShip));
     }
 
     @Transactional
     public SpaceShipDTO refuelSpaceShip(Long spaceShipId, Double amountOfRefuel){
-        SpaceShip exsistingSpaceShip = spaceShipMapping.spaceShipDtoToEntity(getSpaceShipById(spaceShipId));
+        SpaceShip exsistingSpaceShip = spaceShipMapper.spaceShipDtoToEntity(getSpaceShipById(spaceShipId));
         //Planet currentPlanet = planetMapping.planetDtoToEntity(planetService.getPlanetById(currentPlanetId));
         Planet currentPlanet = exsistingSpaceShip.getCurrentPlanet();
         if ((exsistingSpaceShip.getCurrentShipFuel()+amountOfRefuel<exsistingSpaceShip.getSpaceShipFuelTank())) throw new OutOfBounderFuelTankException("Вы пытаетесь залить болше топлива чем можете");
         if ((exsistingSpaceShip.getSpaceShipGoldAmount()<amountOfRefuel*currentPlanet.getFuelPrice())) throw new OutOfGoldExeption("Не хватает денег на заправку");
         exsistingSpaceShip.setCurrentShipFuel(exsistingSpaceShip.getCurrentShipFuel()+amountOfRefuel);
         exsistingSpaceShip.setSpaceShipGoldAmount(exsistingSpaceShip.getSpaceShipGoldAmount()-(amountOfRefuel*currentPlanet.getFuelPrice()));
-        return spaceShipMapping.spaceShipEntityToDto(spaceShipRepository.save(exsistingSpaceShip));
+        return spaceShipMapper.spaceShipEntityToDto(spaceShipRepository.save(exsistingSpaceShip));
     }
 
     @Transactional
     public SpaceShipDTO resourceLoad(Long spaceShipDTOid, Double amountOfResourceToLoad){
-        SpaceShip exsistingSpaceShip = spaceShipMapping.spaceShipDtoToEntity(getSpaceShipById(spaceShipDTOid));
+        SpaceShip exsistingSpaceShip = spaceShipMapper.spaceShipDtoToEntity(getSpaceShipById(spaceShipDTOid));
        // Planet currentPlanet = planetMapping.planetDtoToEntity(planetService.getPlanetById(currentPlanetId));
         Planet currentPlanet = exsistingSpaceShip.getCurrentPlanet();
             if (exsistingSpaceShip.getShipCapacity()==0){
@@ -96,12 +95,12 @@ public class SpaceShipService {
             if (!exsistingSpaceShip.getCurrentSpaceShipResource().equals(currentPlanet.getPlanetResource())) throw new DifferentResourcesException("Вы пытаетесь загрузить разные ресурсы");
             exsistingSpaceShip.setShipCapacity(exsistingSpaceShip.getShipCapacity()+amountOfResourceToLoad);
         }
-        return  spaceShipMapping.spaceShipEntityToDto(spaceShipRepository.save(exsistingSpaceShip));
+        return  spaceShipMapper.spaceShipEntityToDto(spaceShipRepository.save(exsistingSpaceShip));
     }
 
     @Transactional
     public SpaceShipDTO sellResource(Long spaceShipId, Double amountOfResourceToSell){
-        SpaceShip exsistingSpaceShip = spaceShipMapping.spaceShipDtoToEntity(getSpaceShipById(spaceShipId));
+        SpaceShip exsistingSpaceShip = spaceShipMapper.spaceShipDtoToEntity(getSpaceShipById(spaceShipId));
         if ((exsistingSpaceShip.getShipCapacity()-amountOfResourceToSell<0)) throw new OutOfSpaceShipCapacity("Вы пытаетесь продать больше ресурса чем можете взять");
         switch (exsistingSpaceShip.getCurrentSpaceShipResource().getRarity()){
             case 'S': exsistingSpaceShip.setSpaceShipGoldAmount(exsistingSpaceShip.getSpaceShipGoldAmount()+amountOfResourceToSell*100);
@@ -110,6 +109,6 @@ public class SpaceShipService {
             case 'C': exsistingSpaceShip.setSpaceShipGoldAmount(exsistingSpaceShip.getSpaceShipGoldAmount()+amountOfResourceToSell*10);
             case 'D': exsistingSpaceShip.setSpaceShipGoldAmount(exsistingSpaceShip.getSpaceShipGoldAmount()+amountOfResourceToSell*5);
         }
-        return spaceShipMapping.spaceShipEntityToDto(spaceShipRepository.save(exsistingSpaceShip));
+        return spaceShipMapper.spaceShipEntityToDto(spaceShipRepository.save(exsistingSpaceShip));
     }
 }
