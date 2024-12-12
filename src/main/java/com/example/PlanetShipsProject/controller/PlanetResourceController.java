@@ -1,33 +1,32 @@
 package com.example.PlanetShipsProject.controller;
 
 import com.example.PlanetShipsProject.dto.PlanetDTO;
+import com.example.PlanetShipsProject.dto.PlanetResourceDTO;
 import com.example.PlanetShipsProject.dto.SpaceShipDTO;
-import com.example.PlanetShipsProject.model.Planet;
-import com.example.PlanetShipsProject.service.PlanetService;
-import lombok.NoArgsConstructor;
+import com.example.PlanetShipsProject.service.PlanetResourceService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@RequiredArgsConstructor
+
 @RestController
-@RequestMapping("/planets")
-public class PlanetController {
-    final PlanetService planetService;
+@RequestMapping("/planetresources")
+@RequiredArgsConstructor
+public class PlanetResourceController {
+    private final PlanetResourceService planetResourceService;
 
-    @GetMapping("/{planetId}")
-    public PlanetDTO getPlanetById(@PathVariable Long planetId){
-        return planetService.getPlanetById(planetId);
+    @GetMapping("/{planetResourceId}")
+    public PlanetResourceDTO getPlanetResourceById(@PathVariable Long planetId){
+        return planetResourceService.getPlanetResourceById(planetId);
     }
 
-    @PostMapping ("/create")
-    public void createPlanet(@RequestBody PlanetDTO newPlanetDTO){
-        planetService.createPlanet(newPlanetDTO);
+    @PostMapping("/create")
+    public void createPlanetResource(@RequestBody PlanetResourceDTO planetResourceDTO){
+        planetResourceService.createPlanetResource(planetResourceDTO);
     }
 
-    @PutMapping("/{planetId}/update")
-    public void updatePlanet(@PathVariable Long planetId, @RequestBody PlanetDTO planetDTO){
+    @PutMapping("/{planetResourceId}/update")
+    public void updatePlanetResource(@PathVariable Long planetId, @RequestBody PlanetResourceDTO planetResourceDTO){
         planetService.updatePlanet(planetId,planetDTO);
     }
 
@@ -50,5 +49,4 @@ public class PlanetController {
     public List<SpaceShipDTO> getAllSpaceShipsOnAPlanet(@PathVariable Long planetId){
         return planetService.getAllSpaceShipsOnAPlanet(planetId);
     }
-
 }
