@@ -28,9 +28,11 @@ public class PlanetMapping {
         planet.setListOfShips(planetDTO.getListOfShips());
         return planet;
     }
+
     public List<PlanetDTO> planetListEntityToDTO(List <Planet> planetEntityList){
         return planetEntityList.stream().map(this::planetEntityToDto).toList();
     }
+
     public List<Planet> planetListDtoToEntity(List<PlanetDTO> planetDTOList){
         return planetDTOList.stream().map(this::planetDtoToEntity).toList();
     }
