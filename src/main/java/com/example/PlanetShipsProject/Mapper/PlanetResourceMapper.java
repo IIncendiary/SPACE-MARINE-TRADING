@@ -5,7 +5,7 @@ import com.example.PlanetShipsProject.model.PlanetResource;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PlanetResourceMapping {
+public class PlanetResourceMapper {
     public PlanetResourceDTO planetResourceEntityToDto(PlanetResource planetResource){
         PlanetResourceDTO planetResourceDTO = new PlanetResourceDTO();
         planetResourceDTO.setId(planetResource.getId());

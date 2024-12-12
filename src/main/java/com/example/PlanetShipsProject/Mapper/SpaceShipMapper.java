@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SpaceShipMapping {
+public class SpaceShipMapper {
     public SpaceShipDTO spaceShipEntityToDto(SpaceShip spaceShipEntity){
     SpaceShipDTO spaceShipDTO = new SpaceShipDTO();
     spaceShipDTO.setId(spaceShipEntity.getId());

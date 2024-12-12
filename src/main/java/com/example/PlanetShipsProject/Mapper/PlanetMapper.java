@@ -1,15 +1,13 @@
 package com.example.PlanetShipsProject.Mapper;
 
 import com.example.PlanetShipsProject.dto.PlanetDTO;
-import com.example.PlanetShipsProject.dto.SpaceShipDTO;
 import com.example.PlanetShipsProject.model.Planet;
-import com.example.PlanetShipsProject.model.SpaceShip;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class PlanetMapping {
+public class PlanetMapper {
     public PlanetDTO planetEntityToDto(Planet planet){
         PlanetDTO planetDTO = new PlanetDTO();
         planetDTO.setId(planet.getId());

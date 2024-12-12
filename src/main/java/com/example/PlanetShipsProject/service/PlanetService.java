@@ -1,6 +1,6 @@
 package com.example.PlanetShipsProject.service;
-import com.example.PlanetShipsProject.Mapper.PlanetMapping;
-import com.example.PlanetShipsProject.Mapper.SpaceShipMapping;
+import com.example.PlanetShipsProject.Mapper.PlanetMapper;
+import com.example.PlanetShipsProject.Mapper.SpaceShipMapper;
 import com.example.PlanetShipsProject.dto.PlanetDTO;
 import com.example.PlanetShipsProject.dto.SpaceShipDTO;
 import com.example.PlanetShipsProject.model.Planet;
@@ -12,29 +12,28 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @RequiredArgsConstructor
 @Service
 public class PlanetService {
     private final PlanetRepository planetRepository;
-    private final PlanetMapping planetMapping;
-    private final SpaceShipMapping spaceShipMapping;
+    private final PlanetMapper planetMapper;
+    private final SpaceShipMapper spaceShipMapper;
 
     public List<PlanetDTO> findAllPlanets(){
-        return planetMapping.planetListEntityToDTO(planetRepository.findAll());
+        return planetMapper.planetListEntityToDTO(planetRepository.findAll());
     }
 
     @Transactional
     public void createPlanet(PlanetDTO planetDTO){
-       planetRepository.save(planetMapping.planetDtoToEntity(planetDTO));
+       planetRepository.save(planetMapper.planetDtoToEntity(planetDTO));
     }
 
     public PlanetDTO getPlanetById(Long id){
         Planet planet = planetRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("Нема планеты с индификатором "+id));
-        return planetMapping.planetEntityToDto(planet);
+        return planetMapper.planetEntityToDto(planet);
     }
 
     @Transactional
@@ -44,7 +43,7 @@ public class PlanetService {
 
     @Transactional
     public void updatePlanet(Long id, PlanetDTO updatePlanetDTO){
-        Planet exsistingPlanet = planetMapping.planetDtoToEntity(getPlanetById(id));
+        Planet exsistingPlanet = planetMapper.planetDtoToEntity(getPlanetById(id));
         exsistingPlanet.setName(updatePlanetDTO.getName());
         exsistingPlanet.setPlanetResource(updatePlanetDTO.getPlanetResource());
         exsistingPlanet.setFuelPrice(updatePlanetDTO.getFuelPrice());
@@ -53,13 +52,13 @@ public class PlanetService {
 
     @Transactional
     public PlanetDTO updatePlanetFuelPrice(Long planetDTOId, Double newFuelPrice){
-        Planet exsistingPlanet = planetMapping.planetDtoToEntity(getPlanetById(planetDTOId));
+        Planet exsistingPlanet = planetMapper.planetDtoToEntity(getPlanetById(planetDTOId));
         exsistingPlanet.setFuelPrice(newFuelPrice);
-        return planetMapping.planetEntityToDto(planetRepository.save(exsistingPlanet));
+        return planetMapper.planetEntityToDto(planetRepository.save(exsistingPlanet));
     }
 
     public List<SpaceShipDTO> getAllSpaceShipsOnAPlanet(Long planetDTOId){
-        Planet exsistingPlanet = planetMapping.planetDtoToEntity(getPlanetById(planetDTOId));
-        return spaceShipMapping.spaceShipListEntityToDTO(exsistingPlanet.getListOfShips());
+        Planet exsistingPlanet = planetMapper.planetDtoToEntity(getPlanetById(planetDTOId));
+        return spaceShipMapper.spaceShipListEntityToDTO(exsistingPlanet.getListOfShips());
     }
 }
