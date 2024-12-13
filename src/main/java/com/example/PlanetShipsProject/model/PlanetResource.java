@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -20,9 +22,11 @@ public class PlanetResource {
 
     private Character rarity;
 
-    @OneToMany
+    @OneToMany(mappedBy = "currentSpaceShipResource")
     List<SpaceShip> listOfShips;
 
-    @OneToMany
+    @OneToMany(mappedBy = "planetResource")
     List<Planet> listOfPlanets;
 }
+
+

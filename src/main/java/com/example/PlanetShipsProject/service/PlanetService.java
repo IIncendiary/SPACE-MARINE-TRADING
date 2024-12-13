@@ -1,10 +1,12 @@
 package com.example.PlanetShipsProject.service;
 import com.example.PlanetShipsProject.Mapper.PlanetMapper;
+import com.example.PlanetShipsProject.Mapper.PlanetResourceMapper;
 import com.example.PlanetShipsProject.Mapper.SpaceShipMapper;
 import com.example.PlanetShipsProject.dto.PlanetDTO;
 import com.example.PlanetShipsProject.dto.SpaceShipDTO;
 import com.example.PlanetShipsProject.model.Planet;
 import com.example.PlanetShipsProject.repository.PlanetRepository;
+import com.example.PlanetShipsProject.repository.PlanetResourseRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +22,11 @@ public class PlanetService {
     private final PlanetRepository planetRepository;
     private final PlanetMapper planetMapper;
     private final SpaceShipMapper spaceShipMapper;
+    private final PlanetResourceMapper planetResourceMapper;
+    private final PlanetResourseRepository planetResourseRepository;
 
     public List<PlanetDTO> findAllPlanets(){
-        return planetMapper.planetListEntityToDTO(planetRepository.findAll());
+        return planetRepository.findAll().stream().map(planetMapper::planetEntityToDto).toList();
     }
 
     @Transactional
@@ -45,7 +49,7 @@ public class PlanetService {
     public void updatePlanet(Long id, PlanetDTO updatePlanetDTO){
         Planet exsistingPlanet = planetMapper.planetDtoToEntity(getPlanetById(id));
         exsistingPlanet.setName(updatePlanetDTO.getName());
-        exsistingPlanet.setPlanetResource(updatePlanetDTO.getPlanetResource());
+        exsistingPlanet.setPlanetResource(planetResourseRepository.getReferenceById(updatePlanetDTO.getPlanetResourceID()));
         exsistingPlanet.setFuelPrice(updatePlanetDTO.getFuelPrice());
         planetRepository.save(exsistingPlanet);
     }
@@ -59,6 +63,6 @@ public class PlanetService {
 
     public List<SpaceShipDTO> getAllSpaceShipsOnAPlanet(Long planetDTOId){
         Planet exsistingPlanet = planetMapper.planetDtoToEntity(getPlanetById(planetDTOId));
-        return spaceShipMapper.spaceShipListEntityToDTO(exsistingPlanet.getListOfShips());
+        return exsistingPlanet.getListOfShips().stream().map(spaceShipMapper::spaceShipEntityToDto).toList();
     }
 }

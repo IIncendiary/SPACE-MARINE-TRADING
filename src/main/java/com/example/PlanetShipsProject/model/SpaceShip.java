@@ -18,7 +18,10 @@ public class SpaceShip {
 
     private Double shipCapacity;
 
+    private Double shipCurrentCapacity;
+
     @ManyToOne
+    @JoinColumn(name = "current_space_ship_resource_id")
     private PlanetResource currentSpaceShipResource;
 
     private Double currentShipFuel;
@@ -26,7 +29,10 @@ public class SpaceShip {
     private Double spaceShipGoldAmount;
 
     @ManyToOne
+    @JoinColumn(name = "current_planet_id")
     private Planet currentPlanet;
 
     private Double spaceShipFuelTank;
+
+
 }

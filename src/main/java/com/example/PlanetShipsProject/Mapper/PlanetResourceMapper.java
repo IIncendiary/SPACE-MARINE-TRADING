@@ -1,22 +1,31 @@
 package com.example.PlanetShipsProject.Mapper;
 
 import com.example.PlanetShipsProject.dto.PlanetResourceDTO;
+import com.example.PlanetShipsProject.model.Planet;
 import com.example.PlanetShipsProject.model.PlanetResource;
+import com.example.PlanetShipsProject.model.SpaceShip;
+import com.example.PlanetShipsProject.repository.PlanetRepository;
+import com.example.PlanetShipsProject.repository.SpaceShipRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@RequiredArgsConstructor
 @Service
 public class PlanetResourceMapper {
+
+    private final PlanetRepository planetRepository;
+    private final SpaceShipRepository spaceShipRepository;
 
     public PlanetResourceDTO planetResourceEntityToDto(PlanetResource planetResource){
         PlanetResourceDTO planetResourceDTO = new PlanetResourceDTO();
         planetResourceDTO.setId(planetResource.getId());
         planetResourceDTO.setName(planetResource.getName());
         planetResourceDTO.setRarity(planetResource.getRarity());
-        planetResourceDTO.setListOfPlanets(planetResource.getListOfPlanets());
-        planetResourceDTO.setListOfShips(planetResource.getListOfShips());
+        planetResourceDTO.setListOfPlanetsID(planetResource.getListOfPlanets().stream().map(Planet::getId).toList());
+        planetResourceDTO.setListOfShipsID(planetResource.getListOfShips().stream().map(SpaceShip::getId).toList());
         return planetResourceDTO;
     }
 
@@ -25,8 +34,8 @@ public class PlanetResourceMapper {
         planetResource.setId(planetResourceDTO.getId());
         planetResource.setName(planetResourceDTO.getName());
         planetResource.setRarity(planetResourceDTO.getRarity());
-        planetResource.setListOfPlanets(planetResourceDTO.getListOfPlanets());
-        planetResource.setListOfShips(planetResourceDTO.getListOfShips());
+        planetResource.setListOfPlanets(planetResourceDTO.getListOfPlanetsID().stream().map(planetRepository::getReferenceById).toList());
+        planetResource.setListOfShips(planetResourceDTO.getListOfShipsID().stream().map(spaceShipRepository::getReferenceById).toList());
         return planetResource;
     }
 

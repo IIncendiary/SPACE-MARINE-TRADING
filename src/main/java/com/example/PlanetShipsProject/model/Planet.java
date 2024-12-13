@@ -19,11 +19,11 @@ public class Planet {
     private String name;
 
     @ManyToOne
+    @JoinColumn(name = "planet_resource_id")
     private PlanetResource planetResource;
 
     private Double fuelPrice;
-
-    @OneToMany
+    @OneToMany()
     List<SpaceShip> listOfShips;
 }
 
