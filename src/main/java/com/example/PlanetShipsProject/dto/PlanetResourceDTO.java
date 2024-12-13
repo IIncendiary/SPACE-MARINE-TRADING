@@ -8,9 +8,14 @@ import lombok.Data;
 import java.util.List;
 @Data
 public class PlanetResourceDTO {
+
     private Long id;
+
     private String name;
+
     private Character rarity;
-    List<SpaceShip> listOfShips;
-    List<Planet> listOfPlanets;
+
+    List<Long> listOfShipsID;
+
+    List<Long> listOfPlanetsID;
 }

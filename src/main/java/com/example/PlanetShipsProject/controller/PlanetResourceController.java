@@ -10,43 +10,43 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/planetresources")
+@RequestMapping("/planetresource")
 @RequiredArgsConstructor
 public class PlanetResourceController {
     private final PlanetResourceService planetResourceService;
 
     @GetMapping("/{planetResourceId}")
-    public PlanetResourceDTO getPlanetResourceById(@PathVariable Long planetId){
-        return planetResourceService.getPlanetResourceById(planetId);
+    public PlanetResourceDTO getPlanetResourceById(@PathVariable Long planetResourceId){
+        return planetResourceService.getPlanetResourceById(planetResourceId);
     }
 
-    @PostMapping("/create")
+    @PostMapping()
     public void createPlanetResource(@RequestBody PlanetResourceDTO planetResourceDTO){
         planetResourceService.createPlanetResource(planetResourceDTO);
     }
 
-    @PutMapping("/{planetResourceId}/update")
-    public void updatePlanetResource(@PathVariable Long planetId, @RequestBody PlanetResourceDTO planetResourceDTO){
-        planetService.updatePlanet(planetId,planetDTO);
+    @PutMapping("/{planetResourceId}")
+    public void updatePlanetResource(@PathVariable Long planetResourceId, @RequestBody PlanetResourceDTO planetResourceDTO){
+        planetResourceService.updatePlanetResource(planetResourceId,planetResourceDTO);
     }
 
-    @DeleteMapping ("/delete/{planetId}")
-    public void deletePlanet(@PathVariable Long planetId){
-        planetService.deletePlanet(planetId);
+    @DeleteMapping ("/{planetResourceId}")
+    public void deletePlanet(@PathVariable Long planetResourceId){
+        planetResourceService.deletePlanetResource(planetResourceId);
     }
 
     @GetMapping("/all")
-    public List<PlanetDTO> getAllPlanets(){
-        return planetService.findAllPlanets();
+    public List<PlanetResourceDTO> findAllPlanetResources(){
+        return planetResourceService.findAllPlanetResources();
     }
 
-    @PutMapping("/{planetId}/update/fuelprice")
-    public void updatePlanetFuelPrice(@PathVariable Long planetId, @RequestBody Double newFuelPrice){
-        planetService.updatePlanetFuelPrice(planetId,newFuelPrice);
+    @GetMapping("/{planetResourceId}/allspaceships")
+    public List<Long> findAllSpaceShipsCarringThisResource(@PathVariable Long planetResourceId){
+        return planetResourceService.findAllSpaceShipsCarringThisResource(planetResourceId);
     }
 
-    @GetMapping("/{planetId}/allspaceships")
-    public List<SpaceShipDTO> getAllSpaceShipsOnAPlanet(@PathVariable Long planetId){
-        return planetService.getAllSpaceShipsOnAPlanet(planetId);
+    @GetMapping("/{planetResourceId}/allplanets")
+    public List<Long> findAllPlanetsWithThisResource(@PathVariable Long planetResourceId){
+        return planetResourceService.findAllPlanetsWithThisResource(planetResourceId);
     }
 }
