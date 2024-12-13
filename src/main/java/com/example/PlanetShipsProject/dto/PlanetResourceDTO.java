@@ -2,6 +2,7 @@ package com.example.PlanetShipsProject.dto;
 
 import com.example.PlanetShipsProject.model.Planet;
 import com.example.PlanetShipsProject.model.SpaceShip;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class PlanetResourceDTO {
 
     private Character rarity;
 
-    List<SpaceShip> listOfShips;
+    List<Long> listOfShipsID;
 
-    List<Planet> listOfPlanets;
+    List<Long> listOfPlanetsID;
 }

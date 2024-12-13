@@ -14,9 +14,9 @@ public class PlanetMapper {
         PlanetDTO planetDTO = new PlanetDTO();
         planetDTO.setId(planet.getId());
         planetDTO.setName(planet.getName());
-        planetDTO.setPlanetResource(planet.getPlanetResource());
+        planetDTO.setPlanetResourceID(planet.getPlanetResourceID());
         planetDTO.setFuelPrice(planet.getFuelPrice());
-        planetDTO.setListOfShips(planet.getListOfShips());
+        planetDTO.setListOfShipsId(planet.getListOfShipsId());
         return planetDTO;
     }
 
@@ -24,9 +24,9 @@ public class PlanetMapper {
         Planet planet = new Planet();
         planet.setId(planetDTO.getId());
         planet.setName(planetDTO.getName());
-        planet.setPlanetResource(planetDTO.getPlanetResource());
+        planet.setPlanetResourceID(planetDTO.getPlanetResourceID());
         planet.setFuelPrice(planetDTO.getFuelPrice());
-        planet.setListOfShips(planetDTO.getListOfShips());
+        planet.setListOfShipsId(planetDTO.getListOfShipsId());
         return planet;
     }
 

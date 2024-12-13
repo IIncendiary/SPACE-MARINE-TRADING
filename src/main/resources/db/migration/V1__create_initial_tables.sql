@@ -16,6 +16,7 @@ CREATE TABLE space_ship (
     id BIGSERIAL PRIMARY KEY,
     ship_name VARCHAR(255) NOT NULL,
     ship_capacity DOUBLE PRECISION NOT NULL,
+    ship_current_capacity DOUBLE PRECISION NOT NULL,
     current_space_ship_resource_id BIGINT,
     current_ship_fuel DOUBLE PRECISION,
     space_ship_gold_amount DOUBLE PRECISION,

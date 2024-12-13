@@ -15,8 +15,8 @@ public class PlanetResourceMapper {
         planetResourceDTO.setId(planetResource.getId());
         planetResourceDTO.setName(planetResource.getName());
         planetResourceDTO.setRarity(planetResource.getRarity());
-        planetResourceDTO.setListOfPlanets(planetResource.getListOfPlanets());
-        planetResourceDTO.setListOfShips(planetResource.getListOfShips());
+        planetResourceDTO.setListOfPlanetsID(planetResource.getListOfPlanetsID());
+        planetResourceDTO.setListOfShipsID(planetResource.getListOfShipsID());
         return planetResourceDTO;
     }
 
@@ -25,8 +25,8 @@ public class PlanetResourceMapper {
         planetResource.setId(planetResourceDTO.getId());
         planetResource.setName(planetResourceDTO.getName());
         planetResource.setRarity(planetResourceDTO.getRarity());
-        planetResource.setListOfPlanets(planetResourceDTO.getListOfPlanets());
-        planetResource.setListOfShips(planetResourceDTO.getListOfShips());
+        planetResource.setListOfPlanetsID(planetResourceDTO.getListOfPlanetsID());
+        planetResource.setListOfShipsID(planetResourceDTO.getListOfShipsID());
         return planetResource;
     }
 

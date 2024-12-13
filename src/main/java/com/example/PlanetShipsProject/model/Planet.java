@@ -19,12 +19,12 @@ public class Planet {
     private String name;
 
     @ManyToOne
-    private PlanetResource planetResource;
+    private Long planetResourceID;
 
     private Double fuelPrice;
 
     @OneToMany
-    List<SpaceShip> listOfShips;
+    List<Long> listOfShipsId;
 }
 
 

@@ -21,8 +21,10 @@ public class PlanetResource {
     private Character rarity;
 
     @OneToMany
-    List<SpaceShip> listOfShips;
+    List<Long> listOfShipsID;
 
     @OneToMany
-    List<Planet> listOfPlanets;
+    List<Long> listOfPlanetsID;
 }
+
+

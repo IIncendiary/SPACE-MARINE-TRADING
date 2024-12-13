@@ -14,11 +14,13 @@ public class SpaceShipMapper {
         SpaceShipDTO spaceShipDTO = new SpaceShipDTO();
         spaceShipDTO.setId(spaceShipEntity.getId());
         spaceShipDTO.setShipName(spaceShipEntity.getShipName());
-        spaceShipDTO.setCurrentSpaceShipResource(spaceShipEntity.getCurrentSpaceShipResource());
+        spaceShipDTO.setCurrentSpaceShipResourceID(spaceShipEntity.getCurrentSpaceShipResourceID());
         spaceShipDTO.setSpaceShipGoldAmount(spaceShipEntity.getSpaceShipGoldAmount());
         spaceShipDTO.setSpaceShipFuelTank(spaceShipEntity.getSpaceShipFuelTank());
-        spaceShipDTO.setCurrentPlanet(spaceShipEntity.getCurrentPlanet());
+        spaceShipDTO.setCurrentPlanetID(spaceShipEntity.getCurrentPlanetID());
+        spaceShipDTO.setCurrentShipFuel(spaceShipEntity.getCurrentShipFuel());
         spaceShipDTO.setShipCapacity(spaceShipEntity.getShipCapacity());
+        spaceShipDTO.setShipCurrentCapacity(spaceShipEntity.getShipCurrentCapacity());
     return spaceShipDTO;
     }
 
@@ -26,12 +28,13 @@ public class SpaceShipMapper {
         SpaceShip spaceShip = new SpaceShip();
         spaceShip.setId(spaceShipDTO.getId());
         spaceShip.setShipName(spaceShipDTO.getShipName());
-        spaceShip.setCurrentSpaceShipResource(spaceShipDTO.getCurrentSpaceShipResource());
+        spaceShip.setCurrentSpaceShipResourceID(spaceShipDTO.getCurrentSpaceShipResourceID());
         spaceShip.setSpaceShipGoldAmount(spaceShipDTO.getSpaceShipGoldAmount());
         spaceShip.setSpaceShipFuelTank(spaceShipDTO.getSpaceShipFuelTank());
-        spaceShip.setCurrentPlanet(spaceShipDTO.getCurrentPlanet());
+        spaceShip.setCurrentPlanetID(spaceShipDTO.getCurrentPlanetID());
         spaceShip.setCurrentShipFuel(spaceShipDTO.getCurrentShipFuel());
         spaceShip.setShipCapacity(spaceShipDTO.getShipCapacity());
+        spaceShip.setShipCurrentCapacity(spaceShipDTO.getShipCurrentCapacity());
         return spaceShip;
     }
 

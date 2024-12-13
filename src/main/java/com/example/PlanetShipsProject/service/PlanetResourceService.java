@@ -51,19 +51,21 @@ public class PlanetResourceService{
         PlanetResource planetResource = planetResourceMapper.planetResourceDtoToEntity(getPlanetResourceById(id));
         planetResource.setName(planetResourceDTO.getName());
         planetResource.setRarity(planetResourceDTO.getRarity());
-        planetResource.setListOfPlanets(planetResourceDTO.getListOfPlanets());
-        planetResource.setListOfShips(planetResourceDTO.getListOfShips());
+        planetResource.setListOfPlanetsID(planetResourceDTO.getListOfPlanetsID());
+        planetResource.setListOfShipsID(planetResourceDTO.getListOfShipsID());
         planetResourseRepository.save(planetResource);
     }
 
-    public List<SpaceShipDTO> findAllSpaceShipsCarringThisResource(Long planetResourceId){
+    public List<Long> findAllSpaceShipsCarringThisResource(Long planetResourceId){
         PlanetResource planetResource = planetResourceMapper.planetResourceDtoToEntity(getPlanetResourceById(planetResourceId));
-        return spaceShipMapper.spaceShipListEntityToDTO(planetResource.getListOfShips());
+        PlanetResourceDTO planetResourceDTO = planetResourceMapper.planetResourceEntityToDto(planetResource);
+        return planetResourceDTO.getListOfPlanetsID();
     }
 
-    public List<PlanetDTO> findAllPlanetsWithThisResource(Long planetResourceId){
+    public List<Long> findAllPlanetsWithThisResource(Long planetResourceId){
         PlanetResource planetResource = planetResourceMapper.planetResourceDtoToEntity(getPlanetResourceById(planetResourceId));
-        return planetMapper.planetListEntityToDTO(planetResource.getListOfPlanets());
+        PlanetResourceDTO planetResourceDTO = planetResourceMapper.planetResourceEntityToDto(planetResource);
+        return  planetResourceDTO.getListOfPlanetsID();
     }
 }
 

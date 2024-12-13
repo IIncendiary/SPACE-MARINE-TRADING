@@ -41,12 +41,12 @@ public class PlanetResourceController {
     }
 
     @GetMapping("/{planetResourceId}/allspaceships")
-    public List<SpaceShipDTO> findAllSpaceShipsCarringThisResource(@PathVariable Long planetResourceId){
+    public List<Long> findAllSpaceShipsCarringThisResource(@PathVariable Long planetResourceId){
         return planetResourceService.findAllSpaceShipsCarringThisResource(planetResourceId);
     }
 
     @GetMapping("/{planetResourceId}/allplanets")
-    public List<PlanetDTO> findAllPlanetsWithThisResource(@PathVariable Long planetResourceId){
+    public List<Long> findAllPlanetsWithThisResource(@PathVariable Long planetResourceId){
         return planetResourceService.findAllPlanetsWithThisResource(planetResourceId);
     }
 }
