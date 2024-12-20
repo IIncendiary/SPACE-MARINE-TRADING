@@ -16,9 +16,9 @@ public class PlanetDTO {
 
     private String name;
 
-    private Long planetResourceID;
+    private PlanetResourceDTO planetResource;
 
     private Double fuelPrice;
 
-    List<Long> listOfShipsID = new ArrayList<>();
+    List<SpaceShipDTO> listOfShips;
 }

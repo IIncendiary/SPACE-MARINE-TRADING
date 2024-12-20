@@ -1,5 +1,6 @@
 package com.example.PlanetShipsProject.controller;
 import com.example.PlanetShipsProject.dto.SpaceShipDTO;
+import com.example.PlanetShipsProject.service.PlanetService;
 import com.example.PlanetShipsProject.service.SpaceShipService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import java.util.List;
 @RequestMapping("/spaceShip")
 @RequiredArgsConstructor
 public class ShipController {
+    private final PlanetService planetService;
     private final SpaceShipService spaceShipService;
 
     @GetMapping("/{spaceShipId}")
@@ -24,7 +26,7 @@ public class ShipController {
 
     @PutMapping ("/{spaceShipId}/moveSpaceShip/{targetPlanetId}")
     public SpaceShipDTO moveSpaceShip(@PathVariable Long spaceShipId, @PathVariable Long targetPlanetId){
-        return spaceShipService.moveSpaceShip(spaceShipId,targetPlanetId);
+        return spaceShipService.moveSpaceShip(spaceShipId,planetService.getPlanetById(targetPlanetId));
     }
 
     @PutMapping("/{spaceShipId}")

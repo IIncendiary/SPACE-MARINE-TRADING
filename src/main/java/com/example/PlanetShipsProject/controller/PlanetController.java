@@ -7,9 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@RequiredArgsConstructor
+
 @RestController
 @RequestMapping("/planet")
+@RequiredArgsConstructor
 public class PlanetController {
     private  final PlanetService planetService;
 

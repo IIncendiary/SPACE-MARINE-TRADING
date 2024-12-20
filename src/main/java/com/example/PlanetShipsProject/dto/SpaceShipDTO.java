@@ -15,13 +15,13 @@ public class SpaceShipDTO {
 
     private Double shipCurrentCapacity;
 
-    private Long currentSpaceShipResourceId;
+    private PlanetResourceDTO planetResourceDTO;
 
     private Double currentShipFuel;
 
     private Double spaceShipGoldAmount;
 
-    private Long currentPlanetID;
+    private PlanetDTO currentPlanet;
 
     private Double spaceShipFuelTank;
 }
